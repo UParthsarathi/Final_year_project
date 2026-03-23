@@ -4,12 +4,13 @@ import { useSensorStore } from '../store/useSensorStore';
 
 let isListening = false;
 let readingsRef: any = null;
+let stressRef: any = null;
 
 export function startFirebaseSensor() {
   if (isListening) return;
   isListening = true;
 
-  const { setStatus } = useSensorStore.getState();
+  const { setStatus, setStress } = useSensorStore.getState();
   setStatus('connecting');
 
   // Query the last 50 readings from device_001
@@ -22,8 +23,6 @@ export function startFirebaseSensor() {
       
       // Convert the object of push IDs into an array of DataPoints
       const points = Object.values(data).map((val: any) => ({
-        // The timestamp in the DB appears to be in seconds (e.g., 1774238926)
-        // Multiply by 1000 to convert to milliseconds for JS Date
         timestamp: val.timestamp * 1000,
         eda: val.eda,
         ppg: val.ppg_ir
@@ -41,6 +40,35 @@ export function startFirebaseSensor() {
     console.error("Firebase DB Error:", error);
     setStatus('disconnected');
   });
+
+  // Query the last 50 stress scores
+  stressRef = query(ref(db, 'readings/stress_score'), limitToLast(50));
+
+  onValue(stressRef, (snapshot) => {
+    if (snapshot.exists()) {
+      const data = snapshot.val();
+      
+      // Convert the object of push IDs into an array of StressPoints
+      const points = Object.values(data)
+        .filter((val: any) => val.device_id === 'device_001')
+        .map((val: any) => ({
+          timestamp: val.timestamp * 1000,
+          weightedStress: val.weighted_stress,
+          objectiveScore: val.objective_score,
+          subjectiveScore: val.subjective_score
+        }))
+        .sort((a, b) => a.timestamp - b.timestamp);
+
+      if (points.length > 0) {
+        useSensorStore.setState({
+          stressHistory: points,
+          currentStress: points[points.length - 1]
+        });
+      }
+    }
+  }, (error) => {
+    console.error("Firebase Stress DB Error:", error);
+  });
 }
 
 export function stopFirebaseSensor() {
@@ -50,6 +78,11 @@ export function stopFirebaseSensor() {
   if (readingsRef) {
     off(readingsRef);
     readingsRef = null;
+  }
+
+  if (stressRef) {
+    off(stressRef);
+    stressRef = null;
   }
   
   useSensorStore.getState().setStatus('disconnected');

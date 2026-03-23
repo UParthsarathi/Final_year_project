@@ -6,11 +6,21 @@ export interface DataPoint {
   eda: number;
 }
 
+export interface StressPoint {
+  timestamp: number;
+  weightedStress: number;
+  objectiveScore: number;
+  subjectiveScore: number;
+}
+
 interface SensorState {
   current: DataPoint | null;
   history: DataPoint[];
+  currentStress: StressPoint | null;
+  stressHistory: StressPoint[];
   status: 'connected' | 'disconnected' | 'poor_signal' | 'connecting';
   addPoint: (point: DataPoint) => void;
+  setStress: (point: StressPoint) => void;
   setStatus: (status: 'connected' | 'disconnected' | 'poor_signal' | 'connecting') => void;
   clearHistory: () => void;
 }
@@ -20,6 +30,8 @@ const MAX_HISTORY = 300; // Keep last 5 minutes (assuming 1 point/sec)
 export const useSensorStore = create<SensorState>((set) => ({
   current: null,
   history: [],
+  currentStress: null,
+  stressHistory: [],
   status: 'disconnected',
   addPoint: (point) =>
     set((state) => {
@@ -33,6 +45,17 @@ export const useSensorStore = create<SensorState>((set) => ({
         status: point.ppg === 0 ? 'poor_signal' : 'connected',
       };
     }),
+  setStress: (point) =>
+    set((state) => {
+      const newHistory = [...state.stressHistory, point];
+      if (newHistory.length > MAX_HISTORY) {
+        newHistory.shift();
+      }
+      return {
+        currentStress: point,
+        stressHistory: newHistory,
+      };
+    }),
   setStatus: (status) => set({ status }),
-  clearHistory: () => set({ history: [], current: null }),
+  clearHistory: () => set({ history: [], current: null, stressHistory: [], currentStress: null }),
 }));
