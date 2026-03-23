@@ -40,23 +40,23 @@ export function MetricCard({
       />
 
       <div className="flex items-center justify-between mb-4 z-10">
-        <h3 className="text-sm font-medium text-zinc-500 uppercase tracking-wider">{title}</h3>
+        <h3 className="text-xs font-semibold text-zinc-300 uppercase tracking-widest">{title}</h3>
         {icon && <div className="text-zinc-400">{icon}</div>}
       </div>
 
       <div className="z-10">
         <div className="flex items-baseline gap-2">
-          <span className="text-4xl md:text-5xl font-mono font-bold tracking-tighter text-[#1A1A1A]">
+          <span className="text-4xl md:text-6xl font-mono font-bold text-white drop-shadow-sm">
             {value}
           </span>
-          {unit && <span className="text-lg text-zinc-500 font-medium">{unit}</span>}
+          {unit && <span className="text-xl text-zinc-400 font-medium">{unit}</span>}
         </div>
 
         {trendValue && (
           <div className="mt-3 flex items-center gap-1.5 text-sm font-medium">
-            {trend === 'up' && <span className="text-rose-400">↑</span>}
-            {trend === 'down' && <span className="text-emerald-400">↓</span>}
-            {trend === 'stable' && <span className="text-zinc-400">→</span>}
+            {trend === 'up' && <span className="text-rose-400">â</span>}
+            {trend === 'down' && <span className="text-emerald-400">â</span>}
+            {trend === 'stable' && <span className="text-zinc-400">â</span>}
             <span
               className={cn(
                 trend === 'up' && 'text-rose-400',

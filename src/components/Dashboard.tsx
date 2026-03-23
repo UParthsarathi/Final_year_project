@@ -43,9 +43,9 @@ export function Dashboard() {
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
       {/* Top Metrics Hierarchy */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6">
         {/* Main Stress Level - Primary Focus */}
-        <div className="lg:col-span-6">
+        <div className="md:col-span-2 lg:col-span-6">
           <MetricCard
             title="Weighted Stress Level"
             value={stressLevel}
@@ -59,7 +59,7 @@ export function Dashboard() {
         </div>
 
         {/* Component Scores - Sideways */}
-        <div className="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6">
+        <div className="md:col-span-1 lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6">
           <MetricCard
             title="Objective Score"
             value={currentStress ? currentStress.objectiveScore.toFixed(1) : '--'}
@@ -75,7 +75,7 @@ export function Dashboard() {
         </div>
 
         {/* Stress State - Status Summary */}
-        <div className="lg:col-span-3">
+        <div className="md:col-span-1 lg:col-span-3">
           <MetricCard
             title="Current State"
             value={stressLabel}
