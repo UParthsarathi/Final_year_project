@@ -47,7 +47,7 @@ export function Relieve() {
             onClick={() => setActiveTab('breathing')}
             className={cn(
               "flex-1 md:flex-none px-6 py-2 rounded-full text-sm font-medium transition-all flex items-center justify-center gap-2",
-              activeTab === 'breathing' ? "bg-white/10 text-white" : "text-zinc-400 hover:text-zinc-200"
+              activeTab === 'breathing' ? "bg-[#5A5A40] text-white" : "text-zinc-500 hover:text-[#1A1A1A]"
             )}
           >
             <Wind size={16} /> Breathing
@@ -56,7 +56,7 @@ export function Relieve() {
             onClick={() => setActiveTab('music')}
             className={cn(
               "flex-1 md:flex-none px-6 py-2 rounded-full text-sm font-medium transition-all flex items-center justify-center gap-2",
-              activeTab === 'music' ? "bg-white/10 text-white" : "text-zinc-400 hover:text-zinc-200"
+              activeTab === 'music' ? "bg-[#5A5A40] text-white" : "text-zinc-500 hover:text-[#1A1A1A]"
             )}
           >
             <Headphones size={16} /> Music
@@ -66,7 +66,7 @@ export function Relieve() {
 
       {activeTab === 'breathing' && (
         <div className="glass-panel p-6 md:p-12 flex flex-col items-center justify-center min-h-[400px] md:min-h-[500px] relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-b from-indigo-500/5 to-transparent pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#5A5A40]/5 to-transparent pointer-events-none" />
           
           <div className="relative flex items-center justify-center w-56 h-56 md:w-64 md:h-64 mb-12">
             <motion.div
@@ -75,16 +75,16 @@ export function Relieve() {
                 opacity: !isBreathing ? 0.3 : breatheState === 'in' ? 0.8 : breatheState === 'hold' ? 0.8 : 0.3,
               }}
               transition={{ duration: breatheState === 'hold' ? 2 : 4, ease: 'easeInOut' }}
-              className="absolute inset-0 rounded-full bg-indigo-500/20 blur-2xl"
+              className="absolute inset-0 rounded-full bg-[#5A5A40]/10 blur-2xl"
             />
             <motion.div
               animate={{
                 scale: !isBreathing ? 1 : breatheState === 'in' ? 1.2 : breatheState === 'hold' ? 1.2 : 1,
               }}
               transition={{ duration: breatheState === 'hold' ? 2 : 4, ease: 'easeInOut' }}
-              className="absolute inset-8 rounded-full border border-indigo-500/30 bg-zinc-900/50 backdrop-blur-sm flex items-center justify-center shadow-2xl"
+              className="absolute inset-8 rounded-full border border-[#E5E5E0] bg-white/50 backdrop-blur-sm flex items-center justify-center shadow-sm"
             >
-              <span className="text-zinc-300 font-medium tracking-widest uppercase text-sm">
+              <span className="text-[#2D2D2A] font-medium tracking-widest uppercase text-sm">
                 {!isBreathing ? 'Ready' : breatheState === 'in' ? 'Inhale' : breatheState === 'hold' ? 'Hold' : 'Exhale'}
               </span>
             </motion.div>
@@ -92,7 +92,7 @@ export function Relieve() {
 
           <button
             onClick={() => setIsBreathing(!isBreathing)}
-            className="px-8 py-3 rounded-full bg-indigo-500 hover:bg-indigo-600 text-white font-medium transition-colors shadow-lg shadow-indigo-500/20"
+            className="px-8 py-3 rounded-full bg-[#5A5A40] hover:bg-[#4A4A30] text-white font-medium transition-colors shadow-sm"
           >
             {isBreathing ? 'Stop Exercise' : 'Start 4-7-8 Breathing'}
           </button>
@@ -102,22 +102,22 @@ export function Relieve() {
       {activeTab === 'music' && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {tracks.map((track) => (
-            <div key={track.id} className="glass-panel p-4 flex items-center gap-4 group hover:bg-white/[0.02] transition-colors cursor-pointer">
+            <div key={track.id} className="glass-panel p-4 flex items-center gap-4 group hover:bg-black/[0.02] transition-colors cursor-pointer border border-[#E5E5E0]">
               <button 
                 onClick={() => setPlayingTrack(playingTrack === track.id ? null : track.id)}
                 className={cn(
                   "w-12 h-12 rounded-full flex items-center justify-center transition-colors",
-                  playingTrack === track.id ? "bg-emerald-500 text-white" : "bg-white/5 text-zinc-400 group-hover:bg-white/10 group-hover:text-white"
+                  playingTrack === track.id ? "bg-[#5A5A40] text-white" : "bg-black/5 text-zinc-500 group-hover:bg-[#5A5A40]/10 group-hover:text-[#5A5A40]"
                 )}
               >
                 {playingTrack === track.id ? <Pause size={20} /> : <Play size={20} className="ml-1" />}
               </button>
               <div className="flex-1">
-                <h4 className="text-zinc-100 font-medium">{track.title}</h4>
+                <h4 className="text-[#1A1A1A] font-medium">{track.title}</h4>
                 <p className="text-zinc-500 text-sm">{track.category}</p>
               </div>
               <div className="flex items-center gap-3 text-zinc-500">
-                {playingTrack === track.id && <Volume2 size={16} className="text-emerald-500 animate-pulse" />}
+                {playingTrack === track.id && <Volume2 size={16} className="text-[#5A5A40] animate-pulse" />}
                 <span className="text-sm font-mono">{track.duration}</span>
               </div>
             </div>

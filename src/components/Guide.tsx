@@ -42,18 +42,18 @@ export function Guide() {
   return (
     <div className="glass-panel flex flex-col h-[calc(100vh-14rem)] md:h-[600px] md:max-h-[70vh] animate-in fade-in duration-500">
       {/* Header */}
-      <div className="p-4 border-b border-white/5 flex items-center gap-3 bg-white/[0.02]">
-        <div className="w-10 h-10 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400">
+      <div className="p-4 border-b border-[#E5E5E0] flex items-center gap-3 bg-white">
+        <div className="w-10 h-10 rounded-full bg-[#5A5A40]/10 flex items-center justify-center text-[#5A5A40]">
           <Bot size={20} />
         </div>
         <div>
-          <h3 className="font-medium text-zinc-100">Aura Guide</h3>
-          <p className="text-xs text-emerald-400">Online â€¢ Monitoring your vitals</p>
+          <h3 className="font-medium text-[#1A1A1A]">Aura Guide</h3>
+          <p className="text-xs text-emerald-600">Online • Monitoring your vitals</p>
         </div>
       </div>
 
       {/* Chat Area */}
-      <div className="flex-1 overflow-y-auto p-6 space-y-6">
+      <div className="flex-1 overflow-y-auto p-6 space-y-6 bg-[#F7F7F5]/50">
         {messages.map((msg) => (
           <div
             key={msg.id}
@@ -64,15 +64,15 @@ export function Guide() {
           >
             <div className={cn(
               "w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-1",
-              msg.sender === 'user' ? "bg-zinc-800 text-zinc-400" : "bg-indigo-500/20 text-indigo-400"
+              msg.sender === 'user' ? "bg-zinc-200 text-zinc-600" : "bg-[#5A5A40]/10 text-[#5A5A40]"
             )}>
               {msg.sender === 'user' ? <User size={16} /> : <Bot size={16} />}
             </div>
             <div className={cn(
               "p-4 rounded-2xl text-sm leading-relaxed",
               msg.sender === 'user' 
-                ? "bg-zinc-800 text-zinc-100 rounded-tr-sm" 
-                : "bg-white/5 text-zinc-300 rounded-tl-sm border border-white/5"
+                ? "bg-zinc-100 text-[#1A1A1A] rounded-tr-sm border border-[#E5E5E0]" 
+                : "bg-white text-zinc-700 rounded-tl-sm border border-[#E5E5E0] shadow-sm"
             )}>
               {msg.text}
             </div>
@@ -81,19 +81,19 @@ export function Guide() {
       </div>
 
       {/* Input Area */}
-      <div className="p-4 border-t border-white/5 bg-white/[0.01]">
+      <div className="p-4 border-t border-[#E5E5E0] bg-white">
         <form onSubmit={handleSend} className="relative">
           <input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Type your message..."
-            className="w-full bg-zinc-900/50 border border-white/10 rounded-full py-3 pl-5 pr-12 text-sm text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all"
+            className="w-full bg-zinc-50 border border-[#E5E5E0] rounded-full py-3 pl-5 pr-12 text-sm text-[#1A1A1A] placeholder:text-zinc-400 focus:outline-none focus:border-[#5A5A40]/50 focus:ring-1 focus:ring-[#5A5A40]/50 transition-all"
           />
           <button
             type="submit"
             disabled={!input.trim()}
-            className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-indigo-500 text-white flex items-center justify-center disabled:opacity-50 disabled:bg-zinc-800 transition-colors"
+            className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-[#5A5A40] text-white flex items-center justify-center disabled:opacity-50 disabled:bg-zinc-300 transition-colors"
           >
             <Send size={14} className="ml-0.5" />
           </button>

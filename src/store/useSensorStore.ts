@@ -2,18 +2,16 @@ import { create } from 'zustand';
 
 export interface DataPoint {
   timestamp: number;
-  bpm: number;
+  ppg: number;
   eda: number;
-  ppg_ir: number;
-  device_id: string;
 }
 
 interface SensorState {
   current: DataPoint | null;
   history: DataPoint[];
-  status: 'connected' | 'disconnected' | 'poor_signal';
+  status: 'connected' | 'disconnected' | 'poor_signal' | 'connecting';
   addPoint: (point: DataPoint) => void;
-  setStatus: (status: 'connected' | 'disconnected' | 'poor_signal') => void;
+  setStatus: (status: 'connected' | 'disconnected' | 'poor_signal' | 'connecting') => void;
   clearHistory: () => void;
 }
 
@@ -32,7 +30,7 @@ export const useSensorStore = create<SensorState>((set) => ({
       return {
         current: point,
         history: newHistory,
-        status: point.bpm === 0 ? 'poor_signal' : 'connected',
+        status: point.ppg === 0 ? 'poor_signal' : 'connected',
       };
     }),
   setStatus: (status) => set({ status }),

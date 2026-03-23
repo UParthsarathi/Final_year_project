@@ -11,7 +11,7 @@ export function Insights() {
       return {
         stressLevel: 'Calibrating...',
         stressDescription: 'Gathering baseline data to provide accurate insights.',
-        avgBpm: 0,
+        avgPpg: 0,
         edaTrend: 'stable',
         status: 'normal' as const,
       };
@@ -21,29 +21,29 @@ export function Insights() {
     const recent = history.slice(-30); // Last 30 seconds
     const older = history.slice(-60, -30); // Previous 30 seconds
 
-    const avgBpmRecent = recent.reduce((sum, p) => sum + p.bpm, 0) / recent.length;
-    const avgBpmOlder = older.length > 0 ? older.reduce((sum, p) => sum + p.bpm, 0) / older.length : avgBpmRecent;
+    const avgPpgRecent = recent.reduce((sum, p) => sum + p.ppg, 0) / recent.length;
+    const avgPpgOlder = older.length > 0 ? older.reduce((sum, p) => sum + p.ppg, 0) / older.length : avgPpgRecent;
     
     const avgEdaRecent = recent.reduce((sum, p) => sum + p.eda, 0) / recent.length;
     const avgEdaOlder = older.length > 0 ? older.reduce((sum, p) => sum + p.eda, 0) / older.length : avgEdaRecent;
 
     // Determine trends
-    const bpmDiff = avgBpmRecent - avgBpmOlder;
+    const ppgDiff = avgPpgRecent - avgPpgOlder;
     const edaDiff = avgEdaRecent - avgEdaOlder;
 
     let stressLevel = 'Balanced';
     let stressDescription = 'Your physiological activity is stable and within normal baseline ranges.';
     let status: 'normal' | 'warning' | 'critical' = 'normal';
 
-    if (edaDiff > 0.2 && bpmDiff > 5) {
+    if (edaDiff > 0.2 && ppgDiff > 50) {
       stressLevel = 'Elevated Stress';
-      stressDescription = 'Both heart rate and electrodermal activity are rising. Consider taking a moment to breathe and reset.';
+      stressDescription = 'Both PPG and electrodermal activity are rising. Consider taking a moment to breathe and reset.';
       status = 'critical';
-    } else if (edaDiff > 0.1 || bpmDiff > 3) {
+    } else if (edaDiff > 0.1 || ppgDiff > 20) {
       stressLevel = 'Mild Arousal';
       stressDescription = 'Slight elevation in physiological activity detected. This is normal during focus or light stress.';
       status = 'warning';
-    } else if (edaDiff < -0.1 && bpmDiff < -2) {
+    } else if (edaDiff < -0.1 && ppgDiff < -20) {
       stressLevel = 'Deep Recovery';
       stressDescription = 'Your metrics indicate a state of deep relaxation and recovery. Excellent for recharging.';
       status = 'normal';
@@ -52,7 +52,7 @@ export function Insights() {
     return {
       stressLevel,
       stressDescription,
-      avgBpm: Math.round(avgBpmRecent),
+      avgPpg: Math.round(avgPpgRecent),
       edaTrend: edaDiff > 0.05 ? 'increasing' : edaDiff < -0.05 ? 'decreasing' : 'stable',
       status,
     };
@@ -69,13 +69,13 @@ export function Insights() {
         <div className="absolute top-0 right-0 p-6 opacity-10">
           <Brain size={120} />
         </div>
-        <h3 className="text-sm font-medium text-zinc-400 uppercase tracking-wider mb-2">
+        <h3 className="text-sm font-medium text-zinc-500 uppercase tracking-wider mb-2">
           Current State
         </h3>
-        <h2 className="text-3xl font-semibold text-zinc-50 mb-3">
+        <h2 className="text-3xl font-serif font-medium text-[#2D2D2A] mb-3">
           {insights.stressLevel}
         </h2>
-        <p className="text-zinc-400 max-w-md leading-relaxed">
+        <p className="text-zinc-600 max-w-md leading-relaxed">
           {insights.stressDescription}
         </p>
       </motion.div>
@@ -87,23 +87,23 @@ export function Insights() {
         className="glass-panel p-6 flex flex-col gap-6"
       >
         <div>
-          <div className="flex items-center gap-2 text-sm font-medium text-zinc-400 uppercase tracking-wider mb-2">
+          <div className="flex items-center gap-2 text-sm font-medium text-zinc-500 uppercase tracking-wider mb-2">
             <Activity size={16} />
-            <span>Avg BPM (30s)</span>
+            <span>Avg PPG (30s)</span>
           </div>
-          <div className="text-3xl font-mono font-bold text-zinc-50">
-            {insights.avgBpm || '--'}
+          <div className="text-3xl font-mono font-bold text-[#1A1A1A]">
+            {insights.avgPpg || '--'}
           </div>
         </div>
         
-        <div className="h-px w-full bg-white/10" />
+        <div className="h-px w-full bg-[#E5E5E0]" />
 
         <div>
-          <div className="flex items-center gap-2 text-sm font-medium text-zinc-400 uppercase tracking-wider mb-2">
+          <div className="flex items-center gap-2 text-sm font-medium text-zinc-500 uppercase tracking-wider mb-2">
             <Zap size={16} />
             <span>EDA Trend</span>
           </div>
-          <div className="text-xl font-medium text-zinc-50 capitalize">
+          <div className="text-xl font-medium text-[#1A1A1A] capitalize">
             {insights.edaTrend}
           </div>
         </div>
