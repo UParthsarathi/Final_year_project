@@ -42,7 +42,7 @@ export function Guide() {
     try {
       const apiKey = process.env.GEMINI_API_KEY;
       if (!apiKey) {
-        throw new Error("API Key not found");
+        throw new Error("GEMINI_API_KEY is missing. Please ensure it is set in your environment variables.");
       }
 
       const ai = new GoogleGenAI({ apiKey });
@@ -89,11 +89,22 @@ export function Guide() {
         sender: 'bot',
       };
       setMessages((prev) => [...prev, botMsg]);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Chat error:", error);
+      
+      let errorMessage = "I'm having trouble connecting to my systems. Please check your connection and try again.";
+      
+      if (error?.message?.includes("GEMINI_API_KEY is missing")) {
+        errorMessage = "The GEMINI_API_KEY is not configured. If you've deployed this app, please ensure the API key is set in your environment variables.";
+      } else if (error?.message?.includes("API_KEY_INVALID")) {
+        errorMessage = "The provided API key is invalid. Please check your GEMINI_API_KEY configuration.";
+      } else if (error?.message?.includes("quota")) {
+        errorMessage = "I've reached my usage limit for now. Please try again in a few minutes.";
+      }
+
       const errorMsg: Message = {
         id: (Date.now() + 1).toString(),
-        text: "I'm having trouble connecting to my systems. Please check your connection and try again.",
+        text: errorMessage,
         sender: 'bot',
       };
       setMessages((prev) => [...prev, errorMsg]);
