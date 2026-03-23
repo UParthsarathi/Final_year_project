@@ -41,7 +41,7 @@ export function MetricCard({
 
       <div className="flex items-center justify-between mb-4 z-10">
         <h3 className="text-xs font-semibold text-zinc-300 uppercase tracking-widest">{title}</h3>
-        {icon && <div className="text-zinc-400">{icon}</div>}
+        {icon && <div className="text-zinc-300">{icon}</div>}
       </div>
 
       <div className="z-10">
@@ -49,7 +49,7 @@ export function MetricCard({
           <span className="text-4xl md:text-6xl font-mono font-bold text-white drop-shadow-sm">
             {value}
           </span>
-          {unit && <span className="text-xl text-zinc-400 font-medium">{unit}</span>}
+          {unit && <span className="text-xl text-zinc-300 font-medium">{unit}</span>}
         </div>
 
         {trendValue && (

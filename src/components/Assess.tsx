@@ -124,13 +124,13 @@ export function Assess() {
     max = 100, 
     step = 1
   ) => (
-    <div className="mb-8 bg-white p-6 rounded-2xl border border-[#E5E5E0] shadow-sm">
+    <div className="mb-8 bg-white/5 p-6 rounded-2xl border border-white/10">
       <div className="flex justify-between items-end mb-2">
         <div>
-          <h4 className="text-lg font-medium text-[#1A1A1A]">{label}</h4>
-          <p className="text-sm text-zinc-500 mt-1">{description}</p>
+          <h4 className="text-lg font-medium text-zinc-100">{label}</h4>
+          <p className="text-sm text-zinc-300 mt-1">{description}</p>
         </div>
-        <span className="text-2xl font-mono font-bold text-[#5A5A40]">{value}</span>
+        <span className="text-2xl font-mono font-bold text-emerald-400">{value}</span>
       </div>
       <input
         type="range"
@@ -139,9 +139,9 @@ export function Assess() {
         step={step}
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
-        className="w-full h-2 bg-zinc-200 rounded-lg appearance-none cursor-pointer accent-[#5A5A40] mt-4"
+        className="w-full h-2 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-emerald-500 mt-4"
       />
-      <div className="flex justify-between text-xs font-medium text-zinc-500 mt-3 uppercase tracking-wider">
+      <div className="flex justify-between text-xs font-medium text-zinc-400 mt-3 uppercase tracking-wider">
         <span>{minLabel}</span>
         <span>{maxLabel}</span>
       </div>
@@ -195,11 +195,11 @@ export function Assess() {
             className="space-y-8"
           >
             <div className="glass-panel p-8 text-center max-w-2xl mx-auto">
-              <div className="w-16 h-16 bg-[#5A5A40]/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-[#5A5A40]/20">
-                <ClipboardList className="w-8 h-8 text-[#5A5A40]" />
+              <div className="w-16 h-16 bg-emerald-500/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-emerald-500/20">
+                <ClipboardList className="w-8 h-8 text-emerald-400" />
               </div>
-              <h2 className="text-3xl font-serif font-medium text-[#2D2D2A] mb-2">Clinical Assessments</h2>
-              <p className="text-zinc-500">
+              <h2 className="text-2xl font-semibold text-zinc-50 mb-2">Clinical Assessments</h2>
+              <p className="text-zinc-300">
                 Select an assessment to evaluate your cognitive load, emotional state, or perceived stress.
               </p>
             </div>
@@ -209,22 +209,22 @@ export function Assess() {
                 <div 
                   key={a.id} 
                   onClick={() => handleNavigate(a.id)}
-                  className="glass-panel p-6 flex flex-col h-full hover:bg-black/[0.02] transition-colors cursor-pointer group border border-[#E5E5E0] hover:border-[#5A5A40]/30"
+                  className="glass-panel p-6 flex flex-col h-full hover:bg-white/[0.04] transition-colors cursor-pointer group border border-white/5 hover:border-white/10"
                 >
                   <div className="flex justify-between items-start mb-4">
                     <div className={cn("p-3 rounded-xl border", a.color)}>
                       <a.icon size={24} />
                     </div>
-                    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-zinc-100 text-zinc-500 border border-[#E5E5E0]">
+                    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-zinc-800/50 text-zinc-300 border border-white/5">
                       <Clock size={12} />
                       {a.time}
                     </div>
                   </div>
-                  <h3 className="text-xl font-medium text-[#1A1A1A] mb-2">{a.title}</h3>
-                  <p className="text-zinc-500 text-sm flex-1 mb-6 leading-relaxed">
+                  <h3 className="text-xl font-medium text-zinc-100 mb-2">{a.title}</h3>
+                  <p className="text-zinc-300 text-sm flex-1 mb-6 leading-relaxed">
                     {a.description}
                   </p>
-                  <div className="flex items-center text-sm font-medium text-[#5A5A40] group-hover:text-[#4A4A30] transition-colors">
+                  <div className="flex items-center text-sm font-medium text-emerald-400 group-hover:text-emerald-300 transition-colors">
                     Start Assessment <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
                   </div>
                 </div>
@@ -237,27 +237,27 @@ export function Assess() {
         {step === 'vas' && (
           <motion.div key="vas" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
             <div className="mb-8">
-              <h2 className="text-3xl font-serif font-medium text-[#2D2D2A]">Single-item Stress (VAS)</h2>
-              <p className="text-zinc-500 mt-2">A quick assessment of current stress level using a Visual Analog Scale (typically rated 0–10).</p>
+              <h2 className="text-3xl font-semibold text-zinc-50">Single-item Stress (VAS)</h2>
+              <p className="text-zinc-300 mt-2">A quick assessment of current stress level using a Visual Analog Scale (typically rated 0–10).</p>
             </div>
             
             <div className="glass-panel p-6 md:p-10 mb-8">
-              <h3 className="text-xl text-[#1A1A1A] mb-12 text-center font-medium">Please rate your current stress level on a scale from 0 (no stress) to 10 (extreme stress).</h3>
+              <h3 className="text-xl text-zinc-100 mb-12 text-center font-medium">Please rate your current stress level on a scale from 0 (no stress) to 10 (extreme stress).</h3>
               
               <div className="relative pt-10 pb-8">
                 {/* Visual gradient indicator */}
                 <div className="absolute top-0 left-0 w-full h-4 rounded-full bg-gradient-to-r from-emerald-500 via-amber-500 to-rose-500 opacity-20" />
                 
                 <div className="text-center mb-6">
-                  <span className="text-6xl font-bold text-[#1A1A1A]">{vas}</span>
+                  <span className="text-6xl font-bold text-white">{vas}</span>
                 </div>
 
                 <input
                   type="range" min="0" max="10" value={vas}
                   onChange={(e) => setVas(Number(e.target.value))}
-                  className="w-full h-3 bg-zinc-200 rounded-lg appearance-none cursor-pointer accent-[#5A5A40]"
+                  className="w-full h-3 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-white"
                 />
-                <div className="flex justify-between text-sm font-medium text-zinc-500 mt-4 uppercase tracking-wider">
+                <div className="flex justify-between text-sm font-medium text-zinc-300 mt-4 uppercase tracking-wider">
                   <span>0 (No stress)</span>
                   <span>10 (Extreme stress)</span>
                 </div>
@@ -265,10 +265,10 @@ export function Assess() {
             </div>
 
             <div className="flex justify-between">
-              <button onClick={() => handleNavigate('menu')} disabled={isSubmitting} className="px-6 py-3 rounded-full border border-[#E5E5E0] text-zinc-600 hover:bg-black/5 flex items-center gap-2 bg-white">
+              <button onClick={() => handleNavigate('menu')} disabled={isSubmitting} className="px-6 py-3 rounded-full border border-white/10 text-zinc-300 hover:bg-white/5 flex items-center gap-2">
                 <ArrowLeft size={18} /> Cancel
               </button>
-              <button onClick={() => submitAssessment('vas')} disabled={isSubmitting} className="bg-[#5A5A40] hover:bg-[#4A4A30] disabled:opacity-50 text-white px-8 py-3 rounded-full font-semibold flex items-center gap-2">
+              <button onClick={() => submitAssessment('vas')} disabled={isSubmitting} className="bg-emerald-500 hover:bg-emerald-600 disabled:bg-emerald-500/50 text-zinc-950 px-8 py-3 rounded-full font-semibold flex items-center gap-2">
                 {isSubmitting ? <Loader2 size={18} className="animate-spin" /> : <>Submit <CheckCircle2 size={18} /></>}
               </button>
             </div>
@@ -279,8 +279,8 @@ export function Assess() {
         {step === 'sam' && (
           <motion.div key="sam" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
             <div className="mb-8">
-              <h2 className="text-3xl font-serif font-medium text-[#2D2D2A]">Self-Assessment Manikin (SAM)</h2>
-              <p className="text-zinc-500 mt-2">Measures the affective dimensions of valence (pleasure) and arousal (calmness) on a 1–9 scale.</p>
+              <h2 className="text-3xl font-semibold text-zinc-50">Self-Assessment Manikin (SAM)</h2>
+              <p className="text-zinc-300 mt-2">Measures the affective dimensions of valence (pleasure) and arousal (calmness) on a 1–9 scale.</p>
             </div>
             
             <div className="glass-panel p-6 md:p-8 mb-8">
@@ -289,10 +289,10 @@ export function Assess() {
             </div>
 
             <div className="flex justify-between">
-              <button onClick={() => handleNavigate('menu')} disabled={isSubmitting} className="px-6 py-3 rounded-full border border-[#E5E5E0] text-zinc-600 hover:bg-black/5 flex items-center gap-2 bg-white">
+              <button onClick={() => handleNavigate('menu')} disabled={isSubmitting} className="px-6 py-3 rounded-full border border-white/10 text-zinc-300 hover:bg-white/5 flex items-center gap-2">
                 <ArrowLeft size={18} /> Cancel
               </button>
-              <button onClick={() => submitAssessment('sam')} disabled={isSubmitting} className="bg-[#5A5A40] hover:bg-[#4A4A30] disabled:opacity-50 text-white px-8 py-3 rounded-full font-semibold flex items-center gap-2">
+              <button onClick={() => submitAssessment('sam')} disabled={isSubmitting} className="bg-emerald-500 hover:bg-emerald-600 disabled:bg-emerald-500/50 text-zinc-950 px-8 py-3 rounded-full font-semibold flex items-center gap-2">
                 {isSubmitting ? <Loader2 size={18} className="animate-spin" /> : <>Submit <CheckCircle2 size={18} /></>}
               </button>
             </div>
@@ -303,8 +303,8 @@ export function Assess() {
         {step === 'nasa' && (
           <motion.div key="nasa" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
             <div className="mb-8">
-              <h2 className="text-3xl font-serif font-medium text-[#2D2D2A]">NASA-TLX Short Form</h2>
-              <p className="text-zinc-500 mt-2">A widely used tool for assessing perceived workload across six dimensions.</p>
+              <h2 className="text-3xl font-semibold text-zinc-50">NASA-TLX Short Form</h2>
+              <p className="text-zinc-300 mt-2">A widely used tool for assessing perceived workload across six dimensions.</p>
             </div>
             
             <div className="glass-panel p-6 md:p-8 mb-8">
@@ -317,10 +317,10 @@ export function Assess() {
             </div>
 
             <div className="flex justify-between">
-              <button onClick={() => handleNavigate('menu')} disabled={isSubmitting} className="px-6 py-3 rounded-full border border-[#E5E5E0] text-zinc-600 hover:bg-black/5 flex items-center gap-2 bg-white">
+              <button onClick={() => handleNavigate('menu')} disabled={isSubmitting} className="px-6 py-3 rounded-full border border-white/10 text-zinc-300 hover:bg-white/5 flex items-center gap-2">
                 <ArrowLeft size={18} /> Cancel
               </button>
-              <button onClick={() => submitAssessment('nasa')} disabled={isSubmitting} className="bg-[#5A5A40] hover:bg-[#4A4A30] disabled:opacity-50 text-white px-8 py-3 rounded-full font-semibold flex items-center gap-2">
+              <button onClick={() => submitAssessment('nasa')} disabled={isSubmitting} className="bg-emerald-500 hover:bg-emerald-600 disabled:bg-emerald-500/50 text-zinc-950 px-8 py-3 rounded-full font-semibold flex items-center gap-2">
                 {isSubmitting ? <Loader2 size={18} className="animate-spin" /> : <>Submit <CheckCircle2 size={18} /></>}
               </button>
             </div>
@@ -331,14 +331,14 @@ export function Assess() {
         {step === 'stai' && (
           <motion.div key="stai" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
             <div className="mb-8">
-              <h2 className="text-3xl font-serif font-medium text-[#2D2D2A]">Short STAI-S</h2>
-              <p className="text-zinc-500 mt-2">A 6-item scale used to measure current (state) anxiety levels. Each item is typically rated on a scale of "Not at all" to "Very much so."</p>
+              <h2 className="text-3xl font-semibold text-zinc-50">Short STAI-S</h2>
+              <p className="text-zinc-300 mt-2">A 6-item scale used to measure current (state) anxiety levels. Each item is typically rated on a scale of "Not at all" to "Very much so."</p>
             </div>
             
             <div className="glass-panel p-6 md:p-8 mb-8 space-y-8">
               {staiQuestions.map((q) => (
-                <div key={q.id} className="bg-white p-6 rounded-2xl border border-[#E5E5E0] shadow-sm">
-                  <h4 className="text-lg font-medium text-[#1A1A1A] mb-4">{q.text}</h4>
+                <div key={q.id} className="bg-white/5 p-6 rounded-2xl border border-white/10">
+                  <h4 className="text-lg font-medium text-zinc-100 mb-4">{q.text}</h4>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                     {['Not at all', 'Somewhat', 'Moderately so', 'Very much so'].map((label, index) => {
                       const value = index + 1;
@@ -350,8 +350,8 @@ export function Assess() {
                           className={cn(
                             "p-3 rounded-xl text-sm font-medium transition-all border",
                             isSelected 
-                              ? "bg-[#5A5A40]/10 border-[#5A5A40]/30 text-[#5A5A40]" 
-                              : "bg-zinc-50 border-[#E5E5E0] text-zinc-500 hover:bg-zinc-100 hover:text-[#1A1A1A]"
+                              ? "bg-emerald-500/20 border-emerald-500/50 text-emerald-400" 
+                              : "bg-zinc-800/50 border-white/5 text-zinc-300 hover:bg-zinc-800 hover:text-zinc-100"
                           )}
                         >
                           {label}
@@ -364,13 +364,13 @@ export function Assess() {
             </div>
 
             <div className="flex justify-between">
-              <button onClick={() => handleNavigate('menu')} disabled={isSubmitting} className="px-6 py-3 rounded-full border border-[#E5E5E0] text-zinc-600 hover:bg-black/5 flex items-center gap-2 bg-white">
+              <button onClick={() => handleNavigate('menu')} disabled={isSubmitting} className="px-6 py-3 rounded-full border border-white/10 text-zinc-300 hover:bg-white/5 flex items-center gap-2">
                 <ArrowLeft size={18} /> Cancel
               </button>
               <button 
                 disabled={Object.keys(stai).length < 6 || isSubmitting}
                 onClick={() => submitAssessment('stai')} 
-                className="bg-[#5A5A40] hover:bg-[#4A4A30] disabled:opacity-50 text-white px-8 py-3 rounded-full font-semibold flex items-center gap-2 transition-colors"
+                className="bg-emerald-500 hover:bg-emerald-600 disabled:bg-zinc-700 disabled:text-zinc-500 text-zinc-950 px-8 py-3 rounded-full font-semibold flex items-center gap-2 transition-colors"
               >
                 {isSubmitting ? <Loader2 size={18} className="animate-spin" /> : <>Submit <CheckCircle2 size={18} /></>}
               </button>
@@ -381,11 +381,11 @@ export function Assess() {
         {/* COMPLETE STEP */}
         {step === 'complete' && (
           <motion.div key="complete" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="glass-panel p-12 text-center">
-            <div className="w-24 h-24 bg-[#5A5A40]/10 rounded-full flex items-center justify-center mx-auto mb-6 border border-[#5A5A40]/20">
-              <CheckCircle2 className="w-12 h-12 text-[#5A5A40]" />
+            <div className="w-24 h-24 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto mb-6 border border-emerald-500/30">
+              <CheckCircle2 className="w-12 h-12 text-emerald-400" />
             </div>
-            <h2 className="text-3xl font-serif font-medium text-[#2D2D2A] mb-4">Assessment Complete</h2>
-            <p className="text-zinc-500 text-lg mb-8 max-w-md mx-auto">
+            <h2 className="text-3xl font-semibold text-zinc-50 mb-4">Assessment Complete</h2>
+            <p className="text-zinc-300 text-lg mb-8 max-w-md mx-auto">
               Your responses have been recorded. This subjective data will be correlated with your physiological PPG and EDA metrics to provide deeper insights.
             </p>
             <button 
@@ -396,7 +396,7 @@ export function Assess() {
                 setNasa({ mental: 50, physical: 50, temporal: 50, performance: 50, effort: 50, frustration: 50 });
                 setStai({});
               }}
-              className="px-8 py-3 rounded-full border border-[#E5E5E0] text-zinc-600 hover:bg-black/5 font-medium bg-white"
+              className="px-8 py-3 rounded-full border border-white/10 text-zinc-300 hover:bg-white/5 font-medium"
             >
               Back to Assessments
             </button>
